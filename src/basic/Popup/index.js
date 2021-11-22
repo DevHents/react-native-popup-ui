@@ -115,7 +115,7 @@ class Popup extends Component {
 				</TouchableOpacity>
 				{}
 				<TouchableOpacity style={styles.cancelStyle} onPress={cancelCallback}>
-					<Text>{cancelText}</Text>
+					<Text style={styles.textCancel}>{cancelText}</Text>
 				</TouchableOpacity>
 			</View>
 		}
@@ -259,7 +259,10 @@ const styles = StyleSheet.create({
 	cancelStyle: {
 		fontWeight: 'bold',
 		marginTop: 10,
-		textAlign: 'center',
+		alignItems: 'center',
+	},
+	textCancel: {
+		fontWeight: "bold",
 	}
 })
 
