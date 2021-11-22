@@ -257,7 +257,9 @@ const styles = StyleSheet.create({
 		elevation: 11
 	},
 	cancelStyle: {
-		
+		fontWeight: 'bold',
+		marginTop: 10,
+		textAlign: 'center',
 	}
 })
 
