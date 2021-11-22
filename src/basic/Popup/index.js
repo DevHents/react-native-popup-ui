@@ -28,9 +28,12 @@ class Popup extends Component {
 			type: config.type,
 			icon: config.icon !== undefined ? config.icon : false,
 			textBody: config.textBody,
+			cancellable: config.cancellable || false,
 			button: config.button !== undefined ? config.button : true,
 			buttonText: config.buttonText || 'Ok',
 			callback: config.callback !== undefined ? config.callback : this.defaultCallback(),
+			cancelCallback: (config.cancelCallback !== undefined)&&(config.cancellable) ? config.cancelCallback : this.defaultCancelCallback(),
+			cancelText: config.cancelText || 'Annuler',
 			background: config.background || 'rgba(0, 0, 0, 0.5)',
 			timing: config.timing,
 			autoClose: config.autoClose !== undefined ? config.autoClose : false
@@ -92,6 +95,8 @@ class Popup extends Component {
 		)
 	}
 
+	defaultCancelCallback(){}
+
 	handleImage(type) {
 		switch (type) {
 			case 'Success': return require('../../assets/Success.png')
@@ -101,12 +106,18 @@ class Popup extends Component {
 	}
 
 	render() {
-		const { title, type, textBody, button, buttonText, callback, background } = this.state
+		const { title, type, textBody, button, buttonText, callback, background, cancellable, cancelCallback, cancelText} = this.state
 		let el = null;
 		if (this.state.button) {
-			el = <TouchableOpacity style={[styles.Button, styles[type]]} onPress={callback}>
-				<Text style={styles.TextButton}>{buttonText}</Text>
-			</TouchableOpacity>
+			el = <View>
+				<TouchableOpacity style={[styles.Button, styles[type]]} onPress={callback}>
+					<Text style={styles.TextButton}>{buttonText}</Text>
+				</TouchableOpacity>
+				{}
+				<TouchableOpacity style={styles.cancelStyle} onPress={cancelCallback}>
+					<Text>{cancelText}</Text>
+				</TouchableOpacity>
+			</View>
 		}
 		else {
 			el = <Text></Text>
@@ -244,6 +255,9 @@ const styles = StyleSheet.create({
 		shadowOpacity: 0.36,
 		shadowRadius: 6.68,
 		elevation: 11
+	},
+	cancelStyle: {
+		
 	}
 })
 
